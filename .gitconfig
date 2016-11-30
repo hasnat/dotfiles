@@ -81,7 +81,7 @@
 [core]
 
 	# Use custom `.gitignore` and `.gitattributes`
-	excludesfile = ~/.gitignore
+	excludesfile = ~/.gitignore_global
 	attributesfile = ~/.gitattributes
 	editor = vim
 	pager = less -x4 
@@ -116,9 +116,9 @@
 
 [color "status"]
 
-	added = yellow
-	changed = green
-	untracked = cyan
+	added = green
+	changed = cyan
+	untracked = red
 
 [diff]
 
@@ -169,5 +169,5 @@
 	autostash = true
 
 [user]
-	name = NAME
-	email = EMAIL
+	name = Hasnat
+	email = hasnat.ullah@gmail.com
