@@ -8,7 +8,7 @@ export JAVA_HOME=$(/usr/libexec/java_home)
 export PATH=${JAVA_HOME}/bin:$PATH
 export ANDROID_HOME=/usr/local/opt/android-sdk
 alias ll="ls -lah"
-export HOMEBREW_GITHUB_API_TOKEN="7e466601f96a04480ea5ffde54ad9fb3f2fd5be1"
+
 alias composer="php /usr/local/bin/composer"
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl" 
 alias storm=pstorm
