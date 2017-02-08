@@ -1,11 +1,18 @@
+source ~/.profile
+export PATH="$(brew --prefix php56)/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
+export PATH="/Library/Frameworks/Mono.framework/Versions/Current/Commands/:$PATH"
+export PATH="$PATH:/usr/local/sbin"
 export HISTCONTROL=ignoredups
-
+export JAVA_HOME=$(/usr/libexec/java_home)
+export PATH=${JAVA_HOME}/bin:$PATH
+export ANDROID_HOME=/usr/local/opt/android-sdk
 alias ll="ls -lah"
-
+export HOMEBREW_GITHUB_API_TOKEN="7e466601f96a04480ea5ffde54ad9fb3f2fd5be1"
 alias composer="php /usr/local/bin/composer"
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl" 
 alias storm=pstorm
+alias xbuild.exe=xbuild
 
 # Add `~/bin` to the `$PATH`
 export PATH="$HOME/bin:$PATH";
@@ -18,6 +25,15 @@ for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
+
+#function run
+run() {
+    number=$1
+    shift
+    for i in `seq $number`; do
+      $@
+    done
+}
 
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob;
@@ -90,4 +106,88 @@ export PATH="/usr/local/heroku/bin:$PATH"
 ### Added gradle
 export PATH="$PATH:$HOME/java-tools/gradle-2.6/bin"
 
+
+# put this in your .bash_profile
+if [ $ITERM_SESSION_ID ]; then
+  export PROMPT_COMMAND='echo -ne "\033];${PWD##*/}\007"; ':"$PROMPT_COMMAND";
+fi
+
+# Piece-by-Piece Explanation:
+# the if condition makes sure we only screw with $PROMPT_COMMAND if we're in an iTerm environment
+# iTerm happens to give each session a unique $ITERM_SESSION_ID we can use, $ITERM_PROFILE is an option too
+# the $PROMPT_COMMAND environment variable is executed every time a command is run
+# see: ss64.com/bash/syntax-prompt.html
+# we want to update the iTerm tab title to reflect the current directory (not full path, which is too long)
+# echo -ne "\033;foo\007" sets the current tab title to "foo"
+# see: stackoverflow.com/questions/8823103/how-does-this-script-for-naming-iterm-tabs-work
+# the two flags, -n = no trailing newline & -e = interpret backslashed characters, e.g. \033 is ESC, \007 is BEL
+# see: ss64.com/bash/echo.html for echo documentation
+# we set the title to ${PWD##*/} which is just the current dir, not full path
+# see: stackoverflow.com/questions/1371261/get-current-directory-name-without-full-path-in-bash-script
+# then we append the rest of $PROMPT_COMMAND so as not to remove what was already there
+# voilà!
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+#https://github.com/pindexis/marker
+[[ -s "$HOME/.local/share/marker/marker.sh" ]] && source "$HOME/.local/share/marker/marker.sh"
+
+#!/usr/bin/env bash #adding this to force silly gist highlighting. REMOVE THIS
+
+
+###-begin-npm-completion-###
+#
+# npm command completion script
+#
+# Installation: npm completion >> ~/.bashrc  (or ~/.zshrc)
+# Or, maybe: npm completion > /usr/local/etc/bash_completion.d/npm
+#
+
+if type complete &>/dev/null; then
+  _npm_completion () {
+    local words cword
+    if type _get_comp_words_by_ref &>/dev/null; then
+      _get_comp_words_by_ref -n = -n @ -w words -i cword
+    else
+      cword="$COMP_CWORD"
+      words=("${COMP_WORDS[@]}")
+    fi
+
+    local si="$IFS"
+    IFS=$'\n' COMPREPLY=($(COMP_CWORD="$cword" \
+                           COMP_LINE="$COMP_LINE" \
+                           COMP_POINT="$COMP_POINT" \
+                           npm completion -- "${words[@]}" \
+                           2>/dev/null)) || return $?
+    IFS="$si"
+  }
+  complete -o default -F _npm_completion npm
+elif type compdef &>/dev/null; then
+  _npm_completion() {
+    local si=$IFS
+    compadd -- $(COMP_CWORD=$((CURRENT-1)) \
+                 COMP_LINE=$BUFFER \
+                 COMP_POINT=0 \
+                 npm completion -- "${words[@]}" \
+                 2>/dev/null)
+    IFS=$si
+  }
+  compdef _npm_completion npm
+elif type compctl &>/dev/null; then
+  _npm_completion () {
+    local cword line point words si
+    read -Ac words
+    read -cn cword
+    let cword-=1
+    read -l line
+    read -ln point
+    si="$IFS"
+    IFS=$'\n' reply=($(COMP_CWORD="$cword" \
+                       COMP_LINE="$line" \
+                       COMP_POINT="$point" \
+                       npm completion -- "${words[@]}" \
+                       2>/dev/null)) || return $?
+    IFS="$si"
+  }
+  compctl -K _npm_completion npm
+fi
+###-end-npm-completion-###

@@ -81,7 +81,7 @@
 [core]
 
 	# Use custom `.gitignore` and `.gitattributes`
-	excludesfile = ~/.gitignore_global
+	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
 	editor = vim
 	pager = less -x4 
