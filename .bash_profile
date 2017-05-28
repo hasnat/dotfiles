@@ -134,4 +134,6 @@ fi
 
 #!/usr/bin/env bash #adding this to force silly gist highlighting. REMOVE THIS
 
-source ~/.completion/npm
+source ~/.bash_includes/completion/npm
+
+source ~/.bash_includes/docker
