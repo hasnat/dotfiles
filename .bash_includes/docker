@@ -1,5 +1,5 @@
 # setup default as docker machine
-eval $(docker-machine env default)
+# eval $(docker-machine env default)
 
 
 
