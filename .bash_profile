@@ -1,24 +1,55 @@
 source ~/.profile
-export PATH="$(brew --prefix php56)/bin:$PATH"
+
+# brew
 export PATH="/usr/local/bin:$PATH"
-export PATH="/Library/Frameworks/Mono.framework/Versions/Current/Commands/:$PATH"
 export PATH="$PATH:/usr/local/sbin"
-export PATH="$PATH:~/go/bin"
-export HISTCONTROL=ignoredups
-export JAVA_HOME=$(/usr/libexec/java_home)
-export PATH=${JAVA_HOME}/bin:$PATH
-export ANDROID_HOME=/usr/local/opt/android-sdk
-alias ll="ls -lah"
-source ~/.bash_secrets/main
+
+# php
 alias composer="php /usr/local/bin/composer"
-alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl" 
-alias storm=pstorm
+source ~/.phpbrew/bashrc
+alias xphp='php -dvariables_order=EGPCS -dxdebug.remote_enable=1 -dxdebug.remote_autostart=On'   
+alias xphpweb='php -dvariables_order=EGPCS -dxdebug.remote_enable=1 -dxdebug.remote_autostart=On -S localhost:8000 -t .'
+
+# .net framework
+export PATH="/Library/Frameworks/Mono.framework/Versions/Current/Commands/:$PATH"
 alias xbuild.exe=xbuild
 
-# Add `~/bin` to the `$PATH`
+# golang
+export PATH="$PATH:~/go/bin"
+
+# java
+export JAVA_HOME=$(/usr/libexec/java_home)
+export PATH=${JAVA_HOME}/bin:$PATH
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+
+# android
+export ANDROID_HOME=/usr/local/opt/android-sdk
+
+# gradle
+export PATH="$PATH:$HOME/java-tools/gradle-2.6/bin"
+
+#ruby
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+source ~/.bash_secrets/main
+
+alias ll="ls -lah"
+alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl" 
+alias storm=pstorm
+
+export LDFLAGS="-L/usr/local/opt/openssl/lib"
+export CFLAGS="-I/usr/local/opt/openssl/include"
+export HISTCONTROL=ignoredups
 export PATH="$HOME/bin:$PATH";
 export FIGNORE=$FIGNORE:DS_Store   
 export EDITOR='vim'
+
+
+
 #Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
 # * ~/.extra can be used for other settings you don’t want to commit.
@@ -64,8 +95,6 @@ fi;
 #	complete -o default -o nospace -F _git g;
 #fi;
 
-test -f ~/.git-completion.bash && . $_
-
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
 
@@ -75,13 +104,9 @@ complete -W "NSGlobalDomain" defaults;
 
 # Add `killall` tab completion for common apps
 complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes SystemUIServer Terminal Twitter" killall;
-export PATH=/usr/local/sbin:$PATH
 
 #https://gist.github.com/jlekowski/2194155b7b885f6e2b60
-alias ll='ls -alh'
 alias git-update='git stash save tmp$(date +"%Y%m%d%H%M"); git pull --rebase; git stash pop; git lg -10'
-#alias phpx='XDEBUG_CONFIG="idekey=PHPSTORM" php ' 
-alias phpx='PXDEBUG_CONFIG="idekey=PHPSTORM" PHP_IDE_CONFIG="serverName=VagrantXdebug" php -dxdebug.remote_host=10.12.6.92'   
  
 function parse_git_branch () {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
@@ -96,16 +121,10 @@ function parse_git_repo() {
 #   git remote -v 2> /dev/null | sed -e '/push/!d' -e 's/.*git\/\(.*\).git .*/(\1: /' -e 's/.*gitolite.*:\(.*\) .*/(\1: /'
 }
  
- 
 PS1='\[\033[1;31m\][\[\033[1;32m\]\t\[\033[1;31m\]][\[\033[1;33m\]\u@\h\[\033[1;31m\]:\[\033[1;36m\]\W\[\033[1;31m\]]$(parse_git_repo)$(parse_git_branch) \[\033[00m\]$\[\033[00m\] '
 #PS1='\[\033[1;31m\][\[\033[1;32m\]\t\[\033[1;31m\]][\[\033[1;33m\]\u\[\033[1;31m\]:\[\033[1;36m\]\W\[\033[1;31m\]]$(git-radar --bash --fetch) \[\033[00m\]$\[\033[00m\] '
 #export PS1="$PS1$(git-radar --bash --fetch)"
 #PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-### Added gradle
-export PATH="$PATH:$HOME/java-tools/gradle-2.6/bin"
 
 
 # put this in your .bash_profile
@@ -127,7 +146,6 @@ fi
 # see: stackoverflow.com/questions/1371261/get-current-directory-name-without-full-path-in-bash-script
 # then we append the rest of $PROMPT_COMMAND so as not to remove what was already there
 # voilà!
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 #https://github.com/pindexis/marker
 [[ -s "$HOME/.local/share/marker/marker.sh" ]] && source "$HOME/.local/share/marker/marker.sh"
@@ -135,5 +153,6 @@ fi
 #!/usr/bin/env bash #adding this to force silly gist highlighting. REMOVE THIS
 
 source ~/.bash_includes/completion/npm
-
+source ~/.bash_includes/completion/.git-completion.bash
 source ~/.bash_includes/docker
+

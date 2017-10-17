@@ -169,5 +169,11 @@
 	autostash = true
 
 [user]
-	name = Hasnat
+    useConfigOnly = true
 	email = hasnat.ullah@gmail.com
+	name = Hasnat Ullah
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
