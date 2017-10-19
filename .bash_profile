@@ -6,6 +6,8 @@ export PATH="$PATH:/usr/local/sbin"
 
 # php
 alias composer="php /usr/local/bin/composer"
+export PHPBREW_SET_PROMPT=1
+export PHPBREW_RC_ENABLE=1
 source ~/.phpbrew/bashrc
 alias xphp='php -dvariables_order=EGPCS -dxdebug.remote_enable=1 -dxdebug.remote_autostart=On'   
 alias xphpweb='php -dvariables_order=EGPCS -dxdebug.remote_enable=1 -dxdebug.remote_autostart=On -S localhost:8000 -t .'
