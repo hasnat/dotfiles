@@ -4,6 +4,7 @@
 brew doctor
 brew install mackup
 brew install bash-completion
+brew cask install flux
 brew cask install google-chrome
 brew cask install upwork
 brew cask install slack
@@ -21,6 +22,8 @@ brew cask install docker
 brew install docker-compose
 brew cask install hosts
 brew cask install virtualbox vagrant vagrant-manager
+brew tap caskroom/fonts
+brew cask install font-mononoki
 defaults write com.apple.Finder AppleShowAllFiles true
 killall Finder
 brew install node
