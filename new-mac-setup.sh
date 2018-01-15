@@ -2,6 +2,8 @@
 
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew doctor
+brew install mackup
+brew install bash-completion
 brew cask install google-chrome
 brew cask install upwork
 brew cask install slack
