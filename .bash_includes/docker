@@ -42,3 +42,18 @@ dl() {
   docker inspect -f '{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -aq)
 }
 
+
+docker-run() {
+  if [ $# -eq 0 ]; then
+      echo 'Usage: docker-run <IMAGE_NAME> [host_port:container_port]'
+  fi
+
+  if [ $# -eq 1 ]; then
+      docker run -it --rm -w /usr/local/src/app -v `pwd`:/usr/local/src/app $1 bash
+  fi
+
+  if [ $# -eq 2 ]; then
+      docker run -it --rm -p $2 -w /usr/local/src/app -v `pwd`:/usr/local/src/app $1 bash
+  fi
+
+}
