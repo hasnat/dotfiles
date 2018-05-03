@@ -157,4 +157,5 @@ fi
 source ~/.bash_includes/completion/npm
 source ~/.bash_includes/completion/.git-completion.bash
 source ~/.bash_includes/docker
+source ~/.bash_includes/node
 

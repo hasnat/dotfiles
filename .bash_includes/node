@@ -1,0 +1,21 @@
+node () {
+    tty=
+    tty -s && tty=--tty
+    docker run \
+        $tty \
+        --interactive \
+        --rm \
+        --user $(id -u):$(id -g) \
+        --workdir /etc/passwd:/etc/passwd:ro \
+        --volume /etc/group:/etc/group:ro \
+        -e HOME=/tmp \
+        --expose 3000 \
+        -p 3000:3000 \
+        --workdir /app \
+        --volume $(pwd):/app \
+        node:8 "$@"
+}
+
+npm () {
+    node npm "$@"
+}

@@ -45,15 +45,9 @@ dl() {
 
 docker-run() {
   if [ $# -eq 0 ]; then
-      echo 'Usage: docker-run <IMAGE_NAME> [host_port:container_port]'
+      echo 'docker run -it --rm -w /usr/local/src/app -v `pwd`:/usr/local/src/app <ARGS>'
   fi
-
-  if [ $# -eq 1 ]; then
-      docker run -it --rm -w /usr/local/src/app -v `pwd`:/usr/local/src/app $1 bash
-  fi
-
-  if [ $# -eq 2 ]; then
-      docker run -it --rm -p $2 -w /usr/local/src/app -v `pwd`:/usr/local/src/app $1 bash
-  fi
+  
+  docker run -it --rm -w /usr/local/src/app -v `pwd`:/usr/local/src/app $@
 
 }
