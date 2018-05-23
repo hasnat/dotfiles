@@ -27,6 +27,7 @@ brew install docker-completion
 brew tap caskroom/fonts
 brew cask install font-mononoki
 defaults write com.apple.Finder AppleShowAllFiles true
+defaults write com.apple.desktopservices DSDontWriteNetworkStores true
 killall Finder
 #brew install node
 #brew cask install hosts

@@ -1,4 +1,4 @@
-node () {
+node-docker () {
     tty=
     tty -s && tty=--tty
     docker run \
@@ -16,6 +16,6 @@ node () {
         node:8 "$@"
 }
 
-npm () {
+npm-docker () {
     node npm "$@"
 }

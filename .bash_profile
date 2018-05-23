@@ -1,47 +1,46 @@
-source ~/.profile
+#source ~/.profile
 
 # brew
 export PATH="/usr/local/bin:$PATH"
 export PATH="$PATH:/usr/local/sbin"
 
 # php
-alias composer="php /usr/local/bin/composer"
-export PHPBREW_SET_PROMPT=1
-export PHPBREW_RC_ENABLE=1
-source ~/.phpbrew/bashrc
-alias xphp='php -dvariables_order=EGPCS -dxdebug.remote_enable=1 -dxdebug.remote_autostart=On'   
-alias xphpweb='php -ddate.timezone=Etc/UTC -dvariables_order=EGPCS -dxdebug.remote_enable=1 -dxdebug.remote_autostart=On -S localhost:8000 -t .'
+#alias composer="php /usr/local/bin/composer"
+#export PHPBREW_SET_PROMPT=1
+#export PHPBREW_RC_ENABLE=1
+#source ~/.phpbrew/bashrc
+#alias xphp='php -dvariables_order=EGPCS -dxdebug.remote_enable=1 -dxdebug.remote_autostart=On'   
+#alias xphpweb='php -ddate.timezone=Etc/UTC -dvariables_order=EGPCS -dxdebug.remote_enable=1 -dxdebug.remote_autostart=On -S localhost:8000 -t .'
 
 # .net framework
-export PATH="/Library/Frameworks/Mono.framework/Versions/Current/Commands/:$PATH"
-alias xbuild.exe=xbuild
+#export PATH="/Library/Frameworks/Mono.framework/Versions/Current/Commands/:$PATH"
+#alias xbuild.exe=xbuild
 
 # golang
-export PATH="$PATH:~/go/bin"
+#export PATH="$PATH:~/go/bin"
 
 # java
-export JAVA_HOME=$(/usr/libexec/java_home)
-export PATH=${JAVA_HOME}/bin:$PATH
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
+#export JAVA_HOME=$(/usr/libexec/java_home)
+#export PATH=${JAVA_HOME}/bin:$PATH
+#export PATH="$HOME/.jenv/bin:$PATH"
+#eval "$(jenv init -)"
 
 # android
-export ANDROID_HOME=/usr/local/opt/android-sdk
+#export ANDROID_HOME=/usr/local/opt/android-sdk
 
 # gradle
-export PATH="$PATH:$HOME/java-tools/gradle-2.6/bin"
+#export PATH="$PATH:$HOME/java-tools/gradle-2.6/bin"
 
 #ruby
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+#[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 ### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+#export PATH="/usr/local/heroku/bin:$PATH"
 
 source ~/.bash_secrets/main
 
 alias ll="ls -lah"
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl" 
-alias storm=pstorm
 
 export LDFLAGS="-L/usr/local/opt/openssl/lib"
 export CFLAGS="-I/usr/local/opt/openssl/include"
@@ -156,6 +155,9 @@ fi
 
 source ~/.bash_includes/completion/npm
 source ~/.bash_includes/completion/.git-completion.bash
-source ~/.bash_includes/docker
-source ~/.bash_includes/node
+for f in ~/.bash_includes/*; do [ -f $f ] && source $f; done
 
+
+reload() {
+  source ~/.bash_profile
+}
