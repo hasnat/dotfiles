@@ -40,6 +40,7 @@ export PATH="$PATH:/usr/local/sbin"
 source ~/.bash_secrets/main
 
 alias ll="ls -lah"
+alias iterm="open -a iTerm.app"
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl" 
 
 export LDFLAGS="-L/usr/local/opt/openssl/lib"
