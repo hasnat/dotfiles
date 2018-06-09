@@ -4,6 +4,7 @@
 #brew doctor
 brew install mackup
 brew install bash-completion
+brew cask install iterm2
 brew cask install spectacle
 brew cask install flux
 brew cask install google-chrome
