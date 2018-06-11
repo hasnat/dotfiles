@@ -130,9 +130,9 @@ PS1='\[\033[1;31m\][\[\033[1;32m\]\t\[\033[1;31m\]][\[\033[1;33m\]\u@\h\[\033[1;
 
 
 # put this in your .bash_profile
-if [ $ITERM_SESSION_ID ]; then
-  export PROMPT_COMMAND='echo -ne "\033];${PWD##*/}\007"; ':"$PROMPT_COMMAND";
-fi
+#if [ $ITERM_SESSION_ID ]; then
+  #export PROMPT_COMMAND='echo -ne "\033];${PWD##*/}\007"; ':"$PROMPT_COMMAND";
+#fi
 
 # Piece-by-Piece Explanation:
 # the if condition makes sure we only screw with $PROMPT_COMMAND if we're in an iTerm environment
