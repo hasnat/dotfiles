@@ -157,8 +157,11 @@ PS1='\[\033[1;31m\][\[\033[1;32m\]\t\[\033[1;31m\]][\[\033[1;33m\]\u@\h\[\033[1;
 source ~/.bash_includes/completion/npm
 source ~/.bash_includes/completion/.git-completion.bash
 for f in ~/.bash_includes/*; do [ -f $f ] && source $f; done
+for f in ~/Documents/github/containerized/*.sh; do [ -f $f ] && source $f; done
 
 
 reload() {
   source ~/.bash_profile
 }
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
